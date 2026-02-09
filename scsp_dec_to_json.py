@@ -679,7 +679,9 @@ class ScspParser:
                     attachments[attachment_name][value]["height"] = height
                     attachments[attachment_name][value]["path"] = str(path)           
                     reader.skip(6)
-                    reader.skip(106) 
+                    reader.skip(90)
+                    if color != "FFFFFFFF":
+                        attachments[attachment_name][value]["color"] = color 
                 elif type == "clipping":
                     reader.skip(8)
                     end_slot_id =  reader.int16()
