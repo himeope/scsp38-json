@@ -1217,7 +1217,7 @@ def batch_convert_decompressed_files(directory_path, extension='scsp'):
             
             # 写入JSON文件
             with open(output_json, 'w', encoding='utf-8') as f:
-                json.dump(result, f, indent=4, ensure_ascii=False, use_decimal=True)
+                json.dump(result, f,ensure_ascii=False, use_decimal=True)
             
             print(f"成功转换: {os.path.basename(input_file)} -> {os.path.basename(output_json)}")
         
