@@ -677,9 +677,11 @@ class ScspParser:
                     attachments[attachment_name][value]["scaleY"] = scale_y
                     attachments[attachment_name][value]["width"] = width
                     attachments[attachment_name][value]["height"] = height
-                    attachments[attachment_name][value]["path"] = str(path)           
                     reader.skip(6)
-                    reader.skip(90)
+                    reader.skip(86)
+                    path = reader.string()
+                    attachments[attachment_name][value]["path"] = str(path)
+                    color = reader.color()
                     if color != "FFFFFFFF":
                         attachments[attachment_name][value]["color"] = color 
                 elif type == "clipping":
