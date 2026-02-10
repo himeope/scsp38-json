@@ -546,7 +546,7 @@ class ScspParser:
         vertexCount = 0
 
         bone_info_count = reader.int16()
-        curr_coord_weight = reader.pos +  bone_info_count * 2
+        curr_coord_weight = reader.pos + bone_info_count * 2
         coord_weight_count = reader.int16(curr_coord_weight,True)
         bone_info_list = []
         #先整理骨骼数量 和索引信息
@@ -554,6 +554,7 @@ class ScspParser:
         for i in range(bone_info_count):
             bone_count = reader.int16()
             bone_info_list.append(bone_count)
+            vertexCount += 1 
             for j in range(bone_count):
                 bone_id = reader.int16()
                 bone_info_list.append(bone_id)
@@ -564,7 +565,7 @@ class ScspParser:
         
         reader.skip(2)
         bone_info_index = 0
-        while(bone_info_index < len(bone_info_list)):
+        while bone_info_index < len(bone_info_list):
             bone_count = bone_info_list[bone_info_index]
             bone_info_index += 1
             vertices.append(bone_count)
@@ -575,17 +576,12 @@ class ScspParser:
                 x = reader.float32()
                 y = reader.float32()
                 weight = reader.float32()
-                vertices.extend([bone_id,x,y,weight])
-                
-        if(bone_info_count == 0 and coord_weight_count != 0):
-            vertexCount = int(coord_weight_count/2)
+                vertices.extend([bone_id, x, y, weight])
+        if bone_info_count == 0 and coord_weight_count != 0:
+            vertexCount = int(coord_weight_count / 2)
             for i in range(coord_weight_count):
-                x = reader.float32()
-                vertices.append(x)
-        else:
-            vertexCount = int(bone_info_count/4)
-            
-        return vertices, vertexCount  
+                vertices.append(reader.float32())  
+        return vertices, vertexCount
     def parse_skins(self):
         attachments_type_map = {
                 0:"region",
