@@ -599,7 +599,9 @@ class ScspParser:
 
         for k in range(skins_count):
             name = reader.string()
-            reader.skip(4)
+            # 跳过奇怪的小区域
+            skip_count = reader.int16()
+            reader.skip(2 + skip_count*2)
             attachments_count = reader.int16()
             attachments = {}
             self.skins_lookup[k] = name
