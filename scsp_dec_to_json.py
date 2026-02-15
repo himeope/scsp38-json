@@ -777,9 +777,9 @@ class ScspParser:
             elif(type_id == 9):
                 e['mix'] = reader.float32()
                 e['softness'] = reader.float32()
-                reader.skip(4)
-                e['bendPositive'] = reader.float32()
-                e['stretch'] = reader.float32()
+                e['bendPositive'] = reader.bool_foolat32()
+                e['compress'] = reader.bool_foolat32()
+                e['stretch'] = reader.bool_foolat32()
                 for_conut += 6
             elif(type_id == 13):
                 e['rotateMix'] = reader.float32()
