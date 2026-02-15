@@ -76,6 +76,14 @@ class BinaryReader:
         if b == -1:
             return False
         return b == 1
+    
+    def bool_foolat32(self,read_pos = -1,peek=False):
+        if read_pos == -1:
+            read_pos = self.pos
+        f = self.float32(read_pos,peek)
+        if f == -1:
+            return False
+        return f == 1
       
     def color(self,read_pos = -1,peek=False,need_alpha=True):
         if read_pos == -1:
